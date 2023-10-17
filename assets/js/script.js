@@ -13,7 +13,7 @@ function fetchGames(query) {
         return response.json();
       })
       .then(function (data) {
-        console.log(data);
+        renderGames(data);
       });
   }
 
@@ -26,15 +26,17 @@ function renderGames(data) {
     // count the cards generated, add unique ID, count++
     // for loop for generating cards-- unique IDs to local storage to wishlist
 
-    // data.results.forEach((game) {}
-    const gameDiv = $('<div></div>');
-    gameDiv.addClass('game-card');
-
-    gameDiv.append(
-        $('<h2></h2>').text(game.name)
-    )
-
-    gameContainer.append(gameDiv);
+    data.results.forEach(function(game) {
+        const gameDiv = $('<div></div>');
+        gameDiv.addClass('game-card');
+        gameDiv.append(
+            $('<h2></h2>').text(game.name),
+            $('<img>').attr('src', game.background_image)
+        );
+        gameContainer.append(gameDiv);
+    });
 }
 
-fetchGames();
+$(document).ready(function() {
+    fetchGames();
+});
