@@ -1,4 +1,10 @@
 /* Styling class for game cards */
 .game-card {
-    background-color: white;
+    width: 30rem;
+    height: 45rem;
+    background-color: #eee;
+    border-radius: 2.5rem;
+    box-shadow: 0 2rem 6rem rgba(0, 0, 0, 0.7);
+    position: relative;
+    background-size: cover;
 }
