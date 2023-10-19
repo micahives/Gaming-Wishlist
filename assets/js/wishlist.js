@@ -1,48 +1,73 @@
-var jQueryScript = document.createElement('script');
-jQueryScript.setAttribute('src','https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js');
-document.head.appendChild(jQueryScript);
+// Fetch game data from RAWG API
+function fetchGames(query) {
+    var apiKey = '8d8b426663c34837830e0ed619aad60e'
+    var apiUrl = `https://rawg.io/api/games?token&key=${apiKey}`;
+    // Parameters for api, number of results--Need to integrate into the fetch function
+    const params = {
+        key: apiKey,
+        page_size: 10,
+    };
+  
+    fetch(apiUrl)
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        renderGames(data);
+        console.log(data);
+      });
+  }
 
+// Renders games fetched as HTML, each in their own div container
+// Dynamically create a div for each game that is rendered, limit n=10 at first, then scale
+// Add thumnail img as background-img for card, game title as <h2>, 
+function renderGames(data) {
+    const gameContainer = $('#game-container');
 
-let wishlist = [];
+    // counter variable for cards
+    let cardCount = 1;
 
-function setup() {
+    // count the cards generated, add unique ID, count++
+    // for loop for generating cards-- unique IDs to local storage to wishlist
 
-    const games = document.querySelectorAll(".but");
-    for(let i=0; i<games.length; i++) {
-        games[i].onclick = function(e) {
-            addItem(e);
-        }
-    }
+    data.results.forEach(function(game) {
+        const gameDiv = $('<div></div>');
+        gameDiv.addClass('game-card');
+
+        // Generates unique id for game div using counter variable
+        const uniqueId = `card-${cardCount}`;
+        gameDiv.attr('id', uniqueId);
+
+        // Array to hold game genres--this needs some work
+        const gameGenres = [];
+        gameGenres.push(game.genres);
+        console.log(gameGenres);
+
+        gameDiv.append(
+            $('<h2></h2>').text(game.name),
+            $('<img>').attr('src', game.background_image)
+        );
+
+        // When you click, send to local storage
+        gameDiv.on('click', function() {
+            var value = `favoritedGame_${game.name}`;
+            
+            console.log(localStorage.getItem(`favoritedGame_${game.name}`, uniqueId)); // retrieve the item
+            
+            localStorage.removeItem(`favoritedGame_${game.name}`);  // delete the item
+        })
+
+        cardCount++;
+
+        gameContainer.append(gameDiv);
+    });
 }
 
-function addItem(e) {
 
-    if(!wishlist.find(item => item === gameId)) {
-        const GameId = e.target.getAttribute("id")
-        const gameDiv = document.getElementById("game" + GameId);
-    
-        const wishDiv = document.createElement("div");
-        wishDiv.setAttribute("id", "wish" + GameId);
-        wishDiv.setAttribute("class", game);
-        wishDiv.innerHTML = gameDiv.innerHTML;
-    
-        const removeBtn = document.createElement("input");
-        removeBtn.setAttribute("type", "button");
-        removeBtn.setAttribute("value", "remove");
-        removeBtn.onclick = function() {removeItem(gameId);}
-        wishDiv.appendChild(removeBtn);
-    
-        wishlist.push(gameId);
-        console.log(wishlist);
-    }    
-}
+$(document).ready(function() {
+    fetchGames();
+});
+ 
 
-function removeItem(GameID) {
-const game = document.getElementById("wish" + gameId);
-product.remove();
-wishlist = wishlist.filter(item !== gameId);
-console.log(wishlist);
-
-}
 
 window.addEventListener("load", setup)

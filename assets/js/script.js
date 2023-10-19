@@ -63,4 +63,7 @@ function renderGames(data) {
 $(document).ready(function() {
     fetchGames();
 });
+ 
 
+
+window.addEventListener("load", setup)
