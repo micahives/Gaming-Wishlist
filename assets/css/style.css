@@ -50,13 +50,18 @@ img {
   object-fit: cover;
 }
 
+img:hover {
+    transform: scale(1.5);
+}
+
 body {
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #eee ;
-    margin:0
+    margin-bottom: 10rem;
+    margin: 0;
 }
 
 /*border-radius: 2.5rem;
