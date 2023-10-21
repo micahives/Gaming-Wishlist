@@ -20,68 +20,64 @@ function fetchGames(query) {
 
 // Renders games fetched as HTML, each in their own div container
 // Dynamically create a div for each game that is rendered, limit n=10 at first, then scale
-// Add thumnail img as background-img for card, game title as <h2>, 
 function renderGames(data) {
     const gameContainer = $('#game-container');
-
     // counter variable for cards
     let cardCount = 1;
 
+    // Bulma columns container class with grid layout to have multiple cards side-by-side
+    const columnsContainer = $('<div class="columns is-multiline m-2"></div>');
+
+
     // count the cards generated, add unique ID, count++
     // for loop for generating cards-- unique IDs to local storage to wishlist
-
     data.results.forEach(function(game) {
-        const gameDiv = $('<div></div>');
-        gameDiv.addClass('card');
+      // Add column class specification to fit up to 4 games in each 'row'
+        const gameDiv = $('<div class="column is-3 m-2"></div>');
 
         // Generates unique id for game div using counter variable
         const uniqueId = `card-${cardCount}`;
         gameDiv.attr('id', uniqueId);
 
-        // Array to hold game genres--this needs some work
-        // const gameGenres = [];
-        // gameGenres.push(game.genres);
-        // console.log(gameGenres);
+        styleGameCard(gameDiv, game);
 
-        // Add wishlist button
         const wishlistButton = $('<button></button>').text('Add to Wishlist');
-
-        gameDiv.append(
-            $('<h2></h2>').text(game.name),
-            $('<img>').attr('src', game.background_image),
-            wishlistButton
-        );
-
-        // When you click, send to local storage, need as a data object as mitchell suggested so we can render that game in the wishlist
+        // When you click, send to local storage as a data object to render that game in the wishlist
         wishlistButton.on('click', function() {
           localStorage.setItem(`favoritedGame_${game.name}`, JSON.stringify(game));
-        })
+        });
+
+        gameDiv.append(wishlistButton);
+        columnsContainer.append(gameDiv)
 
         cardCount++;
 
-        gameContainer.append(gameDiv);
+        gameContainer.append(columnsContainer);
     });
 }
 
 
-$(document).ready(function() {
-    fetchGames();
-});
-
-
 // Separate function to style the cards, will update with Bulma classes, run this function..
 // when gameDivs are dynamically generated
-function styleCards() {
-  var gameCard = $('<div></div>');
-  var gameImage = $('<img>');
-  var gameTitle = $('<h3></h3>');
+function styleGameCard(gameDiv, game) {
+  gameDiv.addClass('card');
 
-  gameCard.addClass('card');
-  gameCard.append(
-    gameTitle.text(game.name),
-    gameImage.attr('src', game.background_image)
-  );
+  const cardContent = $('<div class="card-content"></div>');
+  const title = $('<p class="title is-4"></p>').text(game.name);
+  
+  const cardImage = $('<div class="card-image"></div>');
+  const figure = $('<figure class="image is-4by3"></figure>');
+  const img = $('<img>').attr('src', game.background_image);
+  img.attr('alt', 'Game Image');
+  
+  figure.append(img);
+  cardImage.append(figure);
+  cardContent.append(title);
+  
+  gameDiv.append(cardImage, cardContent);
 }
+
+
 
 // See if we can put a simple card in local storage and render it in the wishlist
 function localStorageTest() {
@@ -95,3 +91,7 @@ function localStorageTest() {
 
 localStorageTest();
 // window.addEventListener("load", setup) 
+
+$(document).ready(function() {
+  fetchGames();
+});
