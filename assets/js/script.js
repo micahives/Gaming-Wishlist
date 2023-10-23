@@ -1,3 +1,6 @@
+// Array to store favorited games
+const favGames = [];
+
 // Fetch game data from RAWG API
 function fetchGames(query) {
     var apiKey = '8d8b426663c34837830e0ed619aad60e'
@@ -33,7 +36,7 @@ function renderGames(data) {
     // for loop for generating cards-- unique IDs to local storage to wishlist
     data.results.forEach(function(game) {
       // Add column class specification to fit up to 4 games in each 'row'
-        const gameDiv = $('<div class="column is-3 m-2"></div>');
+        const gameDiv = $('<div class="card column is-3 m-2"></div>');
 
         // Generates unique id for game div using counter variable
         const uniqueId = `card-${cardCount}`;
@@ -45,6 +48,12 @@ function renderGames(data) {
         // When you click, send to local storage as a data object to render that game in the wishlist
         wishlistButton.on('click', function() {
           localStorage.setItem(`favoritedGame_${game.name}`, JSON.stringify(game));
+          // When wishlist button is clicked, create game object and push to favGames array
+          var gameObj = {
+            title: game.name,
+            image: game.background_image,
+          };
+          favGames.push(gameObj);
         });
 
         gameDiv.append(wishlistButton);
@@ -56,11 +65,9 @@ function renderGames(data) {
     });
 }
 
-
-// Separate function to style the cards, will update with Bulma classes, run this function..
-// when gameDivs are dynamically generated
+// Separate function to style the cards with Bulma classes, run this function..
+// when gameDivs are generated
 function styleGameCard(gameDiv, game) {
-  gameDiv.addClass('card');
 
   const cardContent = $('<div class="card-content"></div>');
   const title = $('<p class="title is-4"></p>').text(game.name);
@@ -77,9 +84,7 @@ function styleGameCard(gameDiv, game) {
   gameDiv.append(cardImage, cardContent);
 }
 
-
-
-// See if we can put a simple card in local storage and render it in the wishlist
+// TEST: See if we can put a simple card in local storage and render it in the wishlist
 function localStorageTest() {
   var testObject = {
     name: 'John Doe',
@@ -90,7 +95,6 @@ function localStorageTest() {
 }
 
 localStorageTest();
-// window.addEventListener("load", setup) 
 
 $(document).ready(function() {
   fetchGames();
