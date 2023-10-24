@@ -36,7 +36,9 @@ function renderGames(data) {
     // for loop for generating cards-- unique IDs to local storage to wishlist
     data.results.forEach(function(game) {
       // Add column class specification to fit up to 4 games in each 'row'
+      
         const gameDiv = $('<div class="card column is-3 m-2"></div>');
+
 
         // Generates unique id for game div using counter variable
         const uniqueId = `card-${cardCount}`;
@@ -44,10 +46,13 @@ function renderGames(data) {
 
         styleGameCard(gameDiv, game);
 
-        const wishlistButton = $('<button></button>').text('Add to Wishlist');
+        const wishlistButton = $( '<button class="button is-primary is-small is-centered"> </button>').text('Add to Wishlist');
+       
         // When you click, send to local storage as a data object to render that game in the wishlist
         wishlistButton.on('click', function() {
-          localStorage.setItem(`favoritedGame_${game.name}`, JSON.stringify(game));
+
+          localStorage.setItem(`favoritedGame_${game.name}`, JSON.stringify(game)); alert("This Game has been added to your Wishlist!");
+
           // When wishlist button is clicked, create game object and push to favGames array
           var gameObj = {
             title: game.name,
@@ -70,7 +75,7 @@ function renderGames(data) {
 function styleGameCard(gameDiv, game) {
 
   const cardContent = $('<div class="card-content"></div>');
-  const title = $('<p class="title is-4"></p>').text(game.name);
+  const title = $('<p class="title is-4 is centered"></p>').text(game.name);
   
   const cardImage = $('<div class="card-image"></div>');
   const figure = $('<figure class="image is-4by3"></figure>');
@@ -99,3 +104,6 @@ localStorageTest();
 $(document).ready(function() {
   fetchGames();
 });
+
+
+
