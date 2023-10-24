@@ -56,18 +56,14 @@ function styleGameCard(gameDiv, game) {
     const img = $('<img>').attr('src', game.background_image);
     img.attr('alt', 'Game Image');
 
-    const removeButton = $('<button class="button"></button>').text('Remove');
+    const removeButton = $('<button class="button is-danger"></button>').text('Remove');
 
-    removeButton.on('click', function() {
+    removeButton.on('click', function(event) {
         localStorage.removeItem(`favoritedGame_${game.name}`, JSON.stringify(game));
-        // When wishlist button is clicked, create game object and push to favGames array
 
-        var gameObj = {
-            title: game.name,
-            image: game.background_image,
-          };
+        // event target on the button's parent to remove card HTML
+        event.target.parentNode.remove();
         });
-
 
     figure.append(img);
     cardImage.append(figure);
