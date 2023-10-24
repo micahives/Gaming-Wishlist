@@ -46,7 +46,7 @@ function renderGames(data) {
 
         styleGameCard(gameDiv, game);
 
-        const wishlistButton = $( '<button class="button is-primary is-small is-centered"> </button>').text('Add to Wishlist');
+        const wishlistButton = $( '<button class="button is-primary is-small is-centered is-selected " > <i class="fas fa-align-center"></i></button>').text('Add to Wishlist');
        
         // When you click, send to local storage as a data object to render that game in the wishlist
         wishlistButton.on('click', function() {
@@ -75,7 +75,7 @@ function renderGames(data) {
 function styleGameCard(gameDiv, game) {
 
   const cardContent = $('<div class="card-content"></div>');
-  const title = $('<p class="title is-4 is centered"></p>').text(game.name);
+  const title = $('<p class="title is-4 is-size-3"></p>').text(game.name);
   
   const cardImage = $('<div class="card-image"></div>');
   const figure = $('<figure class="image is-4by3"></figure>');
