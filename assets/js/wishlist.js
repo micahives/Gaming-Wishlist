@@ -36,11 +36,13 @@ function getFavorites() {
 
                 columnsContainer.append(gameDiv);
                 renderedGames.push(uniqueId);
+            
             }
         }
     }
 
     wishlistContainer.html(columnsContainer);
+
 }
 
 // Same styling function seen in script.js for card style consistency with main page
@@ -53,13 +55,27 @@ function styleGameCard(gameDiv, game) {
     const figure = $('<figure class="image is-4by3"></figure>');
     const img = $('<img>').attr('src', game.background_image);
     img.attr('alt', 'Game Image');
-    
+
+    const removeButton = $('<button class="button"></button>').text('Remove');
+
+    removeButton.on('click', function() {
+        localStorage.removeItem(`favoritedGame_${game.name}`, JSON.stringify(game));
+        // When wishlist button is clicked, create game object and push to favGames array
+
+        var gameObj = {
+            title: game.name,
+            image: game.background_image,
+          };
+        });
+
+
     figure.append(img);
     cardImage.append(figure);
     cardContent.append(title);
     
-    gameDiv.append(cardImage, cardContent);
+    gameDiv.append(cardImage, cardContent, removeButton);
   }
+
 
 // When a storage event happens, runs getFavorites function
 window.addEventListener('storage', getFavorites);
@@ -68,3 +84,5 @@ window.addEventListener('storage', getFavorites);
 window.onload = function () {
     getFavorites();
 };
+
+
