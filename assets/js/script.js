@@ -46,12 +46,12 @@ function renderGames(data) {
 
         styleGameCard(gameDiv, game);
 
-        const wishlistButton = $( '<button class="button is-primary is-small is-centered is-selected " > <i class="fas fa-align-center"></i></button>').text('Add to Wishlist');
+        const wishlistButton = $('<button class="button is-primary is-small is-centered"><p class="has-primary-light">Add to Wishlist</p></button>');
        
         // When you click, send to local storage as a data object to render that game in the wishlist
         wishlistButton.on('click', function() {
 
-          localStorage.setItem(`favoritedGame_${game.name}`, JSON.stringify(game)); alert("This Game has been added to your Wishlist!");
+        localStorage.setItem(`favoritedGame_${game.name}`, JSON.stringify(game));
 
           // When wishlist button is clicked, create game object and push to favGames array
           var gameObj = {
