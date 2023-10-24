@@ -35,6 +35,7 @@ h2 {
     background-color:none;
     color: black;
     font-family: 'Quartan';
+    font-size: small;
 
 
 
@@ -63,3 +64,5 @@ body {
     margin-bottom: 10rem;
     margin: 20px;
 }
+
+
