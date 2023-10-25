@@ -11,6 +11,7 @@
     float: left;
     padding: auto;
 }
+ 
 
 h1 {
     height: 100px;
@@ -24,7 +25,7 @@ h1 {
     background-repeat: repeat-x;
     flex-direction: column;
     justify-content: center;
-    position: relative;
+    position: flex;
     font-size: 80px;
     font-style:"Quartan-LT-Std-Bold_37193";
     flex-wrap: wrap;
@@ -65,3 +66,4 @@ rendered cards in the game container */
         margin-right: -17.75rem !important;
   }
 }
+

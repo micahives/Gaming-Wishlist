@@ -107,11 +107,8 @@ function styleGameCard(gameDiv, game) {
   cardContent.append(title, genre, metacritic);
   
   gameDiv.append(cardImage, cardContent);
-}
 
+}
 $(document).ready(function() {
   fetchGames();
 });
-
-
-
