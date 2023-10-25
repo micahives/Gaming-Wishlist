@@ -43,7 +43,7 @@ function renderGames(data) {
     let cardCount = 1;
 
     // Bulma columns container class with grid layout to have multiple cards side-by-side
-    const columnsContainer = $('<div class="columns is-multiline m-6"></div>');
+    const columnsContainer = $('<div class="columns is-multiline mt-4"></div>');
 
 
     // count the cards generated, add unique ID, count++
@@ -51,8 +51,7 @@ function renderGames(data) {
     _.forEach(data.results, function(game) {
       // Add column class specification to fit up to 4 games in each 'row'
       
-        const gameDiv = $('<div class="card column is-2 m-2"></div>');
-
+        const gameDiv = $('<div class= "card column is-4 is-half-tablet is-one-third-desktop is-one-quarter-widescreen m-4"></div>');
 
         // Generates unique id for game div using counter variable
         const uniqueId = `card-${cardCount}`;
@@ -60,11 +59,17 @@ function renderGames(data) {
 
         styleGameCard(gameDiv, game);
 
-        const wishlistButton = $('<button class="button is-primary is-small is-centered"><p class="has-primary-light">Add to Wishlist</p></button>');
+        const wishlistButton = $('<button class="button is-primary is-centered"><p class="has-text-grey-dark">Add to Wishlist</p></button>');
        
         // When you click, send to local storage as a data object to render that game in the wishlist
         wishlistButton.on('click', function() {
           localStorage.setItem(`favoritedGame_${game.name}`, JSON.stringify(game));
+
+          // Adds a heart icon when button is clicked
+          const icon = $('<i class="material-icons">favorite</i>');
+          icon.css('color', '#F14668');
+          gameDiv.append(icon);
+
           });
 
         gameDiv.append(wishlistButton);

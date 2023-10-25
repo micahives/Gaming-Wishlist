@@ -1,20 +1,7 @@
-// Example of how to get a test object out of local storage and display the object's name property
-// Run this function to see the testObj from script.js pull from local storage and display in wishlist.html
-function getTestObj() {
-    var retrievedObject = JSON.parse(localStorage.getItem('TestObject'));
-    var wishlistContainer = document.getElementById('wishlist-container');
-    
-    if (retrievedObject) {
-        var objName = document.createElement('h4');
-        objName.textContent = retrievedObject.name;
-        wishlistContainer.appendChild(objName);
-    }
-}
-
 // Get game from local storage to render on the wishlist
 function getFavorites() {
     const wishlistContainer = $('#wishlist-container');
-    const columnsContainer = $('<div class="columns is-multiline m-2"></div>');
+    const columnsContainer = $('<div class="columns is-multiline mt-4"></div>');
     // Keep track of games in wishlist so duplicates don't exist; stores unique IDs
     const renderedGames = [];
     // Same card counter as seen in script.js, will assign unique IDs as cards are generated
@@ -29,7 +16,7 @@ function getFavorites() {
             cardCount++;
             // if rendered game index not found, will return '-1', will execute code if the index does exist
             if (renderedGames.indexOf(uniqueId) === -1) {
-                const gameDiv = $('<div class="card column is-2 m-2"></div>');
+                const gameDiv = $('<div class= "card column is-4 is-half-tablet is-one-third-desktop is-one-quarter-widescreen m-4"></div>');
                 gameDiv.attr('id', uniqueId);
 
                 styleGameCard(gameDiv, game);
@@ -49,14 +36,27 @@ function getFavorites() {
 function styleGameCard(gameDiv, game) {
 
     const cardContent = $('<div class="card-content"></div>');
-    const title = $('<p class="title is-4"></p>').text(game.name);
+    const title = $('<p class="title is-4 is-size-3"></p>').text(game.name);
     
     const cardImage = $('<div class="card-image"></div>');
     const figure = $('<figure class="image is-4by3"></figure>');
     const img = $('<img>').attr('src', game.background_image);
     img.attr('alt', 'Game Image');
+  
+  
+    const genre = $('<p class=""></p>');
+    // handles the presence of multiple game genres
+    if (game.genres && game.genres.length > 0) {
+      // lodash _.map provides array of genre names, join turns into comma separated string
+      genre.text(_.map( game.genres, 'name').join(', '));
+    }
+    const metacritic = $('<p class=""></p>').text('Metacritic: ' + game.metacritic);
 
-    const removeButton = $('<button class="button is-danger is-small"></button>').text('Remove');
+    const icon = $('<i class="material-icons">favorite</i>');
+    icon.css('color', '#F14668');
+    gameDiv.append(icon);
+
+    const removeButton = $('<button class="button is-danger"></button>').text('Remove');
 
     removeButton.on('click', function(event) {
         localStorage.removeItem(`favoritedGame_${game.name}`, JSON.stringify(game));
@@ -67,11 +67,10 @@ function styleGameCard(gameDiv, game) {
 
     figure.append(img);
     cardImage.append(figure);
-    cardContent.append(title);
+    cardContent.append(title, genre, metacritic);
     
-    gameDiv.append(cardImage, cardContent, removeButton);
+    gameDiv.append(cardImage, cardContent, removeButton, icon);
   }
-
 
 // When a storage event happens, runs getFavorites function
 window.addEventListener('storage', getFavorites);
