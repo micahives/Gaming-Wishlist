@@ -56,7 +56,7 @@ function styleGameCard(gameDiv, game) {
     const img = $('<img>').attr('src', game.background_image);
     img.attr('alt', 'Game Image');
 
-    const removeButton = $('<button class="button is-danger"></button>').text('Remove');
+    const removeButton = $('<button class="button is-danger is-small"></button>').text('Remove');
 
     removeButton.on('click', function(event) {
         localStorage.removeItem(`favoritedGame_${game.name}`, JSON.stringify(game));
