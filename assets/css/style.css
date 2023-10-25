@@ -57,12 +57,11 @@ img:hover {
     transform: scale(1.1);
 }
 
-body {
-    min-height: 100vh;
-    justify-content: center;
-    align-items: center;
-    background-color: #eee ;
-    margin-bottom: 10rem;
-    margin: 20px;
+/* This styling class overwrites the bulma default 'columns' class when screen size is larger than 768px. Fixed spacing on the right of the
+rendered cards in the game container */
+  @media (min-width: 769px) {
+    .columns {
+        margin-left: 6.25rem !important;
+        margin-right: -17.75rem !important;
+  }
 }
-
