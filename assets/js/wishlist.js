@@ -29,7 +29,7 @@ function getFavorites() {
             cardCount++;
             // if rendered game index not found, will return '-1', will execute code if the index does exist
             if (renderedGames.indexOf(uniqueId) === -1) {
-                const gameDiv = $('<div class="card column is-3 m-2"></div>');
+                const gameDiv = $('<div class="card column is-2 m-2"></div>');
                 gameDiv.attr('id', uniqueId);
 
                 styleGameCard(gameDiv, game);

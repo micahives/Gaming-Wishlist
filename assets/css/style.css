@@ -28,6 +28,7 @@ h1 {
     font-size: 80px;
     font-style:"Quartan-LT-Std-Bold_37193";
     flex-wrap: wrap;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 h2 {
@@ -64,5 +65,4 @@ body {
     margin-bottom: 10rem;
     margin: 20px;
 }
-
 

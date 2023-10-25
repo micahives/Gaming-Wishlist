@@ -37,7 +37,7 @@ function renderGames(data) {
     data.results.forEach(function(game) {
       // Add column class specification to fit up to 4 games in each 'row'
       
-        const gameDiv = $('<div class="card column is-3 m-2"></div>');
+        const gameDiv = $('<div class="card column is-2 m-2"></div>');
 
 
         // Generates unique id for game div using counter variable
