@@ -13,6 +13,6 @@ Rawg.io api
 ![](images/Screenshot%202023-10-25%20153932.png)
 ### Links
 * https://rawg.io/apidocs
-* Github [Repository]https://github.com/micahives/Quality-Group-Project
-* Deployed application [URL]https://micahives.github.io/Quality-Group-Project/
+* Github [Repository] (https://github.com/micahives/Quality-Group-Project)
+* Deployed application [URL] (https://micahives.github.io/Quality-Group-Project/)
 
